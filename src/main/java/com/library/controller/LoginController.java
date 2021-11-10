@@ -3,6 +3,7 @@ package com.library.controller;
 import com.library.bean.Admin;
 import com.library.bean.ReaderCard;
 import com.library.service.LoginService;
+import com.library.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 
+/**
+ * @author Zhang Zhe
+ */
 @Controller
 public class LoginController {
 
@@ -56,12 +60,12 @@ public class LoginController {
             admin.setPassword(passwd);
             String username = loginService.getAdminUsername(id);
             admin.setUsername(username);
-            request.getSession().setAttribute("admin", admin);
+            request.getSession().setAttribute(Constant.admin, admin);
             res.put("stateCode", "1");
             res.put("msg", "管理员登陆成功！");
         } else if (isReader) {
             ReaderCard readerCard = loginService.findReaderCardByReaderId(id);
-            request.getSession().setAttribute("readercard", readerCard);
+            request.getSession().setAttribute(Constant.readr, readerCard);
             res.put("stateCode", "2");
             res.put("msg", "读者登陆成功！");
         } else {
@@ -88,7 +92,7 @@ public class LoginController {
 
     @RequestMapping("/admin_repasswd_do")
     public String reAdminPasswdDo(HttpServletRequest request, String oldPasswd, String newPasswd, String reNewPasswd, RedirectAttributes redirectAttributes) {
-        Admin admin = (Admin) request.getSession().getAttribute("admin");
+        Admin admin = (Admin) request.getSession().getAttribute(Constant.admin);
         long id = admin.getAdminId();
         String password = loginService.getAdminPassword(id);
         if (password.equals(oldPasswd)) {
