@@ -1,5 +1,8 @@
 package com.library.bean;
 
+/**
+ * @author Zhang Zhe
+ */
 public class Admin {
 
     private long admin_id;

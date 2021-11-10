@@ -44,8 +44,12 @@ public class LoginController {
     }
 
 
-    //负责处理loginCheck.html请求
-    //请求参数会根据参数名称默认契约自动绑定到相应方法的入参中
+    /**
+     * 负责处理loginCheck.html请求
+     * 请求参数会根据参数名称默认契约自动绑定到相应方法的入参中
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/api/loginCheck", method = RequestMethod.POST)
     public @ResponseBody
     Object loginCheck(HttpServletRequest request) {
