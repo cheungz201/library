@@ -2,54 +2,19 @@ package com.library.dao;
 
 import com.library.bean.ReaderCard;
 import com.library.bean.ReaderInfo;
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Param;
 
-import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.Map;
+public interface ReaderCardDao {
 
-@Repository
-public class ReaderCardDao {
+    int getIdMatchCount(@Param("reader_id")long reader_id,@Param("password") String password);
 
-    @Resource
-    private SqlSessionTemplate sqlSessionTemplate;
+    ReaderCard findReaderByReaderId(@Param("reader_id") long reader_id);
 
-    private final static String NAMESPACE = "com.library.dao.ReaderCardDao.";
+    int resetPassword(@Param("reader_id")long reader_id, @Param("password")String newPassword);
 
-    public int getIdMatchCount(final long reader_id, final String password) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("reader_id", reader_id);
-        map.put("password", password);
-        return sqlSessionTemplate.selectOne(NAMESPACE + "getIdMatchCount", map);
-    }
+    int addReaderCard(ReaderInfo readerInfo, String password);
 
-    public ReaderCard findReaderByReaderId(final long reader_id) {
-        return sqlSessionTemplate.selectOne(NAMESPACE + "findReaderByReaderId", reader_id);
-    }
+    String getPassword(long reader_id);
 
-    public int resetPassword(final long reader_id, final String newPassword) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("reader_id", reader_id);
-        map.put("password", newPassword);
-        return sqlSessionTemplate.update(NAMESPACE + "resetPassword", map);
-    }
-
-    public int addReaderCard(final ReaderInfo readerInfo, final String password) {
-        String username = readerInfo.getName();
-        long reader_id = readerInfo.getReaderId();
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("reader_id", reader_id);
-        map.put("username", username);
-        map.put("password", password);
-        return sqlSessionTemplate.update(NAMESPACE + "addReaderCard", map);
-    }
-
-    public String getPassword(final long reader_id) {
-        return sqlSessionTemplate.selectOne(NAMESPACE + "getPassword", reader_id);
-    }
-
-    public int deleteReaderCard(final long reader_id) {
-        return sqlSessionTemplate.delete(NAMESPACE + "deleteReaderCard", reader_id);
-    }
+    int deleteReaderCard(long reader_id);
 }
