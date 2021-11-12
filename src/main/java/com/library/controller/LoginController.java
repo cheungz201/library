@@ -22,13 +22,8 @@ import java.util.HashMap;
 @Controller
 public class LoginController {
 
-    private LoginService loginService;
-
-
     @Autowired
-    public void setLoginService(LoginService loginService) {
-        this.loginService = loginService;
-    }
+    private LoginService loginService;
 
 
     @RequestMapping(value = {"/", "/login.html"})
@@ -52,29 +47,19 @@ public class LoginController {
      */
     @RequestMapping(value = "/api/loginCheck", method = RequestMethod.POST)
     public @ResponseBody
-    Object loginCheck(HttpServletRequest request) {
+    Object loginCheck(HttpServletRequest request,HttpServletResponse response) {
         long id = Long.parseLong(request.getParameter("id"));
         String passwd = request.getParameter("passwd");
-        boolean isReader = loginService.hasMatchReader(id, passwd);
-        boolean isAdmin = loginService.hasMatchAdmin(id, passwd);
+        Admin admin = loginService.Login(id, passwd);
         HashMap<String, String> res = new HashMap<String, String>();
-        if (isAdmin) {
-            Admin admin = new Admin();
-            admin.setAdminId(id);
-            admin.setPassword(passwd);
-            String username = loginService.getAdminUsername(id);
-            admin.setUsername(username);
+        if (admin != null) {
             request.getSession().setAttribute(Constant.admin, admin);
             res.put("stateCode", "1");
             res.put("msg", "管理员登陆成功！");
-        } else if (isReader) {
-            ReaderCard readerCard = loginService.findReaderCardByReaderId(id);
-            request.getSession().setAttribute(Constant.readr, readerCard);
-            res.put("stateCode", "2");
-            res.put("msg", "读者登陆成功！");
-        } else {
+        }
+        else {
             res.put("stateCode", "0");
-            res.put("msg", "账号或密码错误！");
+            res.put("msg", "帐号密码错误");
         }
         return res;
     }

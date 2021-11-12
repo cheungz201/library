@@ -1,8 +1,10 @@
 package com.library.service;
 
+import com.library.bean.Admin;
 import com.library.bean.ReaderCard;
 import com.library.dao.AdminDao;
 import com.library.dao.ReaderCardDao;
+import com.library.utils.Md5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,5 +47,9 @@ public class LoginService {
         return readerCardDao.getPassword(readerId);
     }
 
+    public Admin Login(long id,String password){
+        Admin admin = adminDao.getAdmin(id, Md5Util.MD5encode(id+password));
+        return admin;
+    }
 
 }
