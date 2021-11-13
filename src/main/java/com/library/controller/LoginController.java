@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 
+
 /**
  * @author Zhang Zhe
  */
@@ -47,7 +48,7 @@ public class LoginController {
      */
     @RequestMapping(value = "/api/loginCheck", method = RequestMethod.POST)
     public @ResponseBody
-    Object loginCheck(HttpServletRequest request,HttpServletResponse response) {
+    Object loginCheck(HttpServletRequest request) {
         long id = Long.parseLong(request.getParameter("id"));
         String passwd = request.getParameter("passwd");
         Admin admin = loginService.Login(id, passwd);

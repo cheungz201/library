@@ -13,6 +13,7 @@ public class LoginService {
 
     @Autowired
     private ReaderCardDao readerCardDao;
+
     @Autowired
     private AdminDao adminDao;
 
@@ -48,8 +49,7 @@ public class LoginService {
     }
 
     public Admin Login(long id,String password){
-        Admin admin = adminDao.getAdmin(id, Md5Util.MD5encode(id+password));
-        return admin;
+        return adminDao.getAdmin(id, Md5Util.MD5encode(id+password));
     }
 
 }
