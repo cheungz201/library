@@ -4,6 +4,7 @@ import com.library.bean.Admin;
 import com.library.bean.ReaderCard;
 import com.library.service.LoginService;
 import com.library.utils.Constant;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import java.util.HashMap;
  * @author Zhang Zhe
  */
 @Controller
+@Slf4j
 public class LoginController {
 
     @Autowired
