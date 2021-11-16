@@ -10,5 +10,6 @@ package com.library.utils;
 public class Constant {
 
     public final static String admin = "admin";
-    public final static String readr = "reader";
+
+    public final static String projectRoot = "/library";
 }

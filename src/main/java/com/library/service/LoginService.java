@@ -8,6 +8,9 @@ import com.library.utils.Md5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author z'z
+ */
 @Service
 public class LoginService {
 
@@ -17,9 +20,6 @@ public class LoginService {
     @Autowired
     private AdminDao adminDao;
 
-    public boolean hasMatchReader(long readerId,String password){
-        return  readerCardDao.getIdMatchCount(readerId, password)>0;
-    }
 
     public String getAdminUsername(long adminId) {
         return adminDao.getUsername(adminId);
@@ -29,9 +29,6 @@ public class LoginService {
         return readerCardDao.findReaderByReaderId(readerId);
     }
 
-    public boolean hasMatchAdmin(long adminId,String password){
-        return adminDao.getMatchCount(adminId, password) == 1;
-    }
 
     public boolean adminRePassword(long adminId, String newPassword){
         return adminDao.resetPassword(adminId,newPassword)>0;

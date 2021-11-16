@@ -15,18 +15,22 @@ import javax.servlet.http.HttpSession;
  * @Description: 登录拦截器
  **/
 public class LoginInterceptor implements HandlerInterceptor {
+
+    @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         HttpSession session = httpServletRequest.getSession();
-        if (session.getAttribute(Constant.admin) != null || session.getAttribute(Constant.readr) != null){
+        if (session.getAttribute(Constant.admin) != null){
             return true;
         }
-        httpServletResponse.sendRedirect("/library");
+        httpServletResponse.sendRedirect(Constant.projectRoot);
         return false;
     }
 
+    @Override
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
     }
 
+    @Override
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
     }
 }

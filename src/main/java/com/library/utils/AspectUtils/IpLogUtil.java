@@ -42,6 +42,7 @@ public class IpLogUtil {
         for (Object o : args){
             if (o instanceof HttpServletRequest){
                 request = (HttpServletRequest) o;
+                break;
             }
         }
         if (request != null){

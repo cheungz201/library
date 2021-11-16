@@ -2,7 +2,7 @@
 <!-- 该xml配置中,xml元素大小写不敏感 -->
 <!-- status="off",log4j2把自身事件记录到控制台的配置，off表示不记录，其余的记录有trace，debug，info，warn，error，fatal -->
 <!-- monitorInterval表示检测更改配置的时间,单位是秒,最小间隔为5秒,0或负数表示不检测 -->
-<configuration name="test-cfg" status="DEBUG" monitorInterval="0">
+<configuration name="test-cfg" status="off" monitorInterval="0">
 
     <!-- 常量引用 -->
     <properties>
@@ -63,8 +63,8 @@
         <logger name="com.library.utils.AspectUtils" level="DEBUG" additivity="true">
             <appender-ref ref="service_log"/>
         </logger>
-
-        <!--测试类的-->
+        
+        <!--测试类-->
         <logger name="xyz" level="DEBUG" additivity="false">
             <appender-ref ref="console" />
         </logger>
