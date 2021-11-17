@@ -31,14 +31,14 @@ public class LoginService {
 
 
     public boolean adminRePassword(long adminId, String newPassword){
-        return adminDao.resetPassword(adminId,newPassword)>0;
+        return adminDao.resetPassword(adminId,Md5Util.MD5encode(adminId+newPassword))>0;
     }
     public String getAdminPassword(long adminId){
         return adminDao.getPassword(adminId);
     }
 
     public boolean readerRePassword(long readerId, String newPassword) {
-        return readerCardDao.resetPassword(readerId, newPassword) > 0;
+        return readerCardDao.resetPassword(readerId, Md5Util.MD5encode(readerId+newPassword)) > 0;
     }
 
     public String getReaderPassword(long readerId) {
@@ -49,4 +49,12 @@ public class LoginService {
         return adminDao.getAdmin(id, Md5Util.MD5encode(id+password));
     }
 
+    public boolean hasMatchReader(long readerId,String password){
+        return  readerCardDao.getIdMatchCount(readerId, Md5Util.MD5encode(readerId+password))>0;
+    }
+
+
+    public boolean hasMatchAdmin(long adminId,String password){
+        return adminDao.getMatchCount(adminId, Md5Util.MD5encode(adminId+password)) == 1;
+    }
 }

@@ -1,6 +1,7 @@
 package com.library.interceptor;
 
 import com.library.utils.Constant;
+import com.sun.org.apache.bcel.internal.Const;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +20,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         HttpSession session = httpServletRequest.getSession();
-        if (session.getAttribute(Constant.admin) != null){
+        if (session.getAttribute(Constant.admin) != null || session.getAttribute(Constant.readr) != null){
             return true;
         }
         httpServletResponse.sendRedirect(Constant.projectRoot);

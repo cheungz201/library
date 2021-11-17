@@ -1,9 +1,11 @@
 package xyz;
 
 import com.library.bean.Admin;
+import com.library.bean.ReaderCard;
 import com.library.controller.LoginController;
 import com.library.dao.AdminDao;
 import com.library.dao.BookDao;
+import com.library.dao.ReaderCardDao;
 import com.library.utils.AspectUtils.IpLogUtil;
 import com.library.utils.Md5Util;
 import lombok.extern.slf4j.Slf4j;
@@ -38,16 +40,17 @@ public class AdminTest extends BaseTest{
     @Autowired
     AdminDao adminDao;
 
-    BookDao bookDao;
+   @Autowired
+    ReaderCardDao readerCardDao;
 
     /**
-     * 添加账户方法
+     * 添加管理员账户
      */
-    //@Test
-    public void setAccount(){
-        long id = 88888;
-        String password = "222222";
-        String username = "lllll";
+    @Test
+    public void setAdminAccount(){
+        long id = 666666;
+        String password = "123456";
+        String username = "cheungz";
         Admin admin = new Admin();
         admin.setAdminId(id);
         admin.setPassword(Md5Util.MD5encode(id+password));
@@ -59,8 +62,27 @@ public class AdminTest extends BaseTest{
         }
     }
 
+    /**
+     * 添加读者账户
+     */
+    //@Test
+    public void setReaderAccount(){
+        long id = 20000;
+        String password = "123456";
+        String username = "cheungZ";
+        ReaderCard readerCard = new ReaderCard();
+        readerCard.setReaderId(id);
+        readerCard.setPassword(Md5Util.MD5encode(id+password));
+        readerCard.setName(username);
+        int i = readerCardDao.insertReader(readerCard);
+        if (i == 1){
+            System.out.println("yes");
+        }
 
-    @Test
+    }
+
+
+    //@Test
     public void logTest() throws IOException {
         log.info("log test");
     }

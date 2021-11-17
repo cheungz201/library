@@ -55,4 +55,11 @@ public interface ReaderCardDao {
      * @return
      */
     int deleteReaderCard(long reader_id);
+
+    /**
+     * 添加读者
+     * @param readerCard
+     * @return
+     */
+    int insertReader(@Param("readerCard") ReaderCard readerCard);
 }
