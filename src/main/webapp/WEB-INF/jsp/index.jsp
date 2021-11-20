@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js" ></script>
+    <script src="js/bootbox.min.js"></script>
     <script src="js/js.cookie.js"></script>
     <style>
         #login{
@@ -58,8 +59,7 @@ background-attachment: fixed;">
         </div>
 
         <p style="text-align: right;color: red;position: absolute" id="info"></p><br/>
-        <button id="loginButton"  class="btn btn-primary  btn-block">登陆
-        </button>
+        <button id="loginButton"  class="btn btn-primary  btn-block">登陆</button>
     </div>
 </div>
     <script>
@@ -121,19 +121,20 @@ background-attachment: fixed;">
                     dataType: "json",
                     success: function(data) {
                         if (data.stateCode.trim() === "0") {
-                            $("#info").text("提示:账号或密码错误！");
+                            bootbox.alert({size: "small",title: "错误提示", message: "账号或密码错误!",callback: function (){}});
                         } else if (data.stateCode.trim() === "1") {
-                            $("#info").text("提示:登陆成功，跳转中...");
-                            window.location.href="/library/admin_main.html";
+                            bootbox.alert({size: "small",title:"提示", message:"登陆成功，跳转中...",callback:function (){
+                                    window.location.href="/library/admin_main.html";
+                                }});
                         } else if (data.stateCode.trim() === "2") {
                             if(remember){
                                 rememberLogin(id,passwd,remember);
                             }else {
                                 Cookies.remove('loginStatus');
                             }
-                            $("#info").text("提示:登陆成功，跳转中...");
-                            window.location.href="/library/reader_main.html";
-
+                            bootbox.alert({size: "small",title:"提示", message:"登陆成功，跳转中...",callback:function (){
+                                    window.location.href="/library/reader_main.html";
+                                }});
                         }
                     }
                 });
