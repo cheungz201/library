@@ -95,6 +95,12 @@ background-attachment: fixed;">
             }
         }
 
+        function tcclose(){
+            $('#box').animate({ 'top': '-100%' }, 500, function () {
+                $('#overlay').fadeOut('fast');
+            });
+        }
+
         // 设置登录信息
         setLoginStatus();
         $("#loginButton").click(function () {
@@ -121,20 +127,19 @@ background-attachment: fixed;">
                     dataType: "json",
                     success: function(data) {
                         if (data.stateCode.trim() === "0") {
-                            bootbox.alert({size: "small",title: "错误提示", message: "账号或密码错误!",callback: function (){}});
+                            bootbox.alert({size: "small",title: "错误提示", message: "账号或密码错误!"});
+                            setTimeout("bootbox.hideAll()",3000);
                         } else if (data.stateCode.trim() === "1") {
-                            bootbox.alert({size: "small",title:"提示", message:"登陆成功，跳转中...",callback:function (){
-                                    window.location.href="/library/admin_main.html";
-                                }});
+                            bootbox.alert({size: "small",title:"提示", message:"登陆成功，跳转中..."});
+                            setTimeout('window.location.href="/library/admin_main.html"',2500);
                         } else if (data.stateCode.trim() === "2") {
                             if(remember){
                                 rememberLogin(id,passwd,remember);
                             }else {
                                 Cookies.remove('loginStatus');
                             }
-                            bootbox.alert({size: "small",title:"提示", message:"登陆成功，跳转中...",callback:function (){
-                                    window.location.href="/library/reader_main.html";
-                                }});
+                            bootbox.alert({size: "small",title:"提示", message:"登陆成功，跳转中..."});
+                            setTimeout('window.location.href="/library/reader_main.html"',2500);
                         }
                     }
                 });
