@@ -1,6 +1,7 @@
 package com.library.service;
 
 import com.library.bean.Lend;
+import com.library.bean.vo.LendInfo;
 import com.library.dao.LendDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ public class LendService {
     public ArrayList<Lend> lendList(){
         return lendDao.lendList();
     }
+
     public ArrayList<Lend> myLendList(long readerId){
         return lendDao.myLendList(readerId);
     }
@@ -34,4 +36,11 @@ public class LendService {
         return lendDao.deleteLend(serNum);
     }
 
+    public ArrayList<LendInfo> getAllLend(){
+        return lendDao.getAllLend();
+    }
+
+    public ArrayList<LendInfo> getLendInfoById(long readerId){
+        return lendDao.queryLendListByReadId(readerId);
+    }
 }

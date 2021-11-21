@@ -38,7 +38,7 @@ public interface BookDao {
      * @param bookId
      * @return
      */
-    Book getBook(@Param("bookId") final long bookId);
+    Book getBook(@Param("book_id") final long bookId);
 
     /**
      * 更新书籍信息

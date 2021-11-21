@@ -101,6 +101,10 @@ background-attachment: fixed;">
             });
         }
 
+        function deleteCookie(name) {
+            document.cookie = name + '=;  expires=Thu, 01 Jan 1970 00:00:01 GMT;'
+        }
+
         setLoginStatus();
         $("#loginButton").click(function () {
             var id =$("#id").val();
@@ -109,6 +113,9 @@ background-attachment: fixed;">
             if (remember == true){
                 // 记住登录信息
                 rememberLogin(id,passwd,remember)
+            }
+            else if(remember == false){
+                deleteCookie('loginStatus')
             }
             if (id == '') {
                 $("#info").text("提示:账号不能为空");

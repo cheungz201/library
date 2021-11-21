@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>借还日志</title>
@@ -48,8 +49,9 @@ background-attachment: fixed;">
             <thead>
             <tr>
                 <th>流水号</th>
-                <th>图书号</th>
-                <th>读者证号</th>
+                <th>图书名</th>
+                <th>借阅人</th>
+                <th>借阅证</th>
                 <th>借出日期</th>
                 <th>归还日期</th>
                 <th>删除</th>
@@ -58,17 +60,18 @@ background-attachment: fixed;">
             <tbody>
             <c:forEach items="${list}" var="alog">
                 <tr>
-                    <td><c:out value="${alog.ser_num}"></c:out></td>
-                    <td><c:out value="${alog.bookId}"></c:out></td>
+                    <td><c:out value="${alog.serNum}"></c:out></td>
+                    <td><c:out value="${alog.bookName}"></c:out></td>
+                    <td><c:out value="${alog.username}"></c:out></td>
                     <td><c:out value="${alog.readerId}"></c:out></td>
-                    <td><c:out value="${alog.lendDateStr}"></c:out></td>
-                    <td><c:out value="${alog.backDateStr}"></c:out></td>
+                    <td><fmt:formatDate value="${alog.lendDate}" pattern="yyyy-MM-dd"></fmt:formatDate></td>
+                    <td><fmt:formatDate value="${alog.backDate}" pattern="yyyy-MM-dd"></fmt:formatDate></td>
                     <td>
-                        <a href="deletelend.html?serNum=<c:out value='${alog.ser_num}'></c:out>">
-                            <c:if test="${!empty alog.backDateStr}">
+                        <a href="deletelend.html?serNum=<c:out value='${alog.serNum}'></c:out>">
+                            <c:if test="${!empty alog.backDate}">
                                 <button type="button" class="btn btn-danger btn-xs">删除</button>
                             </c:if>
-                            <c:if test="${empty alog.backDateStr}">
+                            <c:if test="${empty alog.backDate}">
                                 <button type="button" class="btn btn-default btn-xs" disabled="disabled">删除</button>
                             </c:if>
                         </a>

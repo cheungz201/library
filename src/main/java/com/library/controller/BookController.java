@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * @author z'z
+ * @author Zhang Zhe
  */
 @Controller
 public class BookController {

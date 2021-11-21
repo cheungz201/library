@@ -1,27 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.library.dao.LendDao">
+
+    <resultMap id="LendInfo" type="com.library.bean.vo.LendInfo">
+        <result property="serNum" column="ser_num"/>
+        <result property="username" column="username"/>
+        <result property="bookName" column="name" />
+        <result property="readerId" column="reader_id" />
+        <result property="lendDate" column="lend_date" />
+        <result property="backDate" column="back_date" />
+    </resultMap>
+
+
     <update id="returnBookOne">
         update lend_list set back_date = sysdate() where book_id = #{book_id}
         and reader_id = #{reader_id} and back_date is null
     </update>
+
     <update id="returnBookTwo" parameterType="long">
         update book_info set number = number + 1 where book_id = #{book_id}
     </update>
+
     <insert id="lendBookOne">
         insert into lend_list values
         (null , #{book_id} , #{reader_id} , sysdate() , null)
     </insert>
+
     <update id="lendBookTwo" parameterType="long">
         update book_info set number = number - 1 where book_id = #{book_id}
     </update>
+
     <select id="lendList" resultType="com.library.bean.Lend">
         select * from lend_list
     </select>
+
     <select id="myLendList" resultType="com.library.bean.Lend" parameterType="long">
         select * from lend_list where reader_id = #{reader_id}
     </select>
+
+    <select id="getAllLend" resultMap="LendInfo">
+        select lend.ser_num,reader.username,book.name,lend.reader_id,lend.lend_date,lend.back_date
+            FROM lend_list lend,book_info book,reader_card reader
+            WHERE lend.book_id=book.book_id
+                AND lend.reader_id=reader.reader_id;
+    </select>
+
+    <select id="queryLendListByReadId" resultMap="LendInfo">
+        select lend.ser_num,reader.username,book.name,lend.reader_id,lend.lend_date,lend.back_date
+        FROM lend_list lend,book_info book,reader_card reader
+        WHERE lend.book_id=book.book_id
+          AND lend.reader_id=reader.reader_id
+          AND lend.reader_id=#{ReaderId}
+    </select>
+
     <delete id="deleteLend" parameterType="long">
         delete from lend_list where ser_num = #{ser_num}
     </delete>
+
+
 </mapper>

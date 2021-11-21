@@ -1,6 +1,7 @@
 package com.library.dao;
 
 import com.library.bean.Lend;
+import com.library.bean.vo.LendInfo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.ArrayList;
@@ -54,4 +55,18 @@ public interface LendDao {
      * @return
      */
     int deleteLend(@Param("ser_num")final long ser_num);
+
+    /**
+     * 将所有的借阅信息查询出来
+     * @return 全部的借阅信息
+     */
+    ArrayList<LendInfo> getAllLend();
+
+    /**
+     * 通过读者id查阅已经借阅的图书
+     * @param ReaderId
+     * @return 借阅信息集合
+     */
+    ArrayList<LendInfo> queryLendListByReadId(@Param("ReaderId")final long ReaderId);
+
 }
