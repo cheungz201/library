@@ -50,9 +50,7 @@ public class LoginController {
      */
     @RequestMapping(value = "/api/loginCheck", method = RequestMethod.POST)
     public @ResponseBody
-    Object loginCheck(HttpServletRequest request) {
-        long id = Long.parseLong(request.getParameter("id"));
-        String passwd = request.getParameter("passwd");
+    Object loginCheck(HttpServletRequest request,Long id,String passwd,String remember) {
         boolean isReader = loginService.hasMatchReader(id, passwd);
         boolean isAdmin = loginService.hasMatchAdmin(id, passwd);
         HashMap<String, String> res = new HashMap<String, String>();
@@ -65,6 +63,8 @@ public class LoginController {
             request.getSession().setAttribute(Constant.admin, admin);
             res.put("stateCode", "1");
             res.put("msg", "管理员登陆成功！");
+            /*if (remember.equals("true")){
+            }*/
         } else if (isReader) {
             ReaderCard readerCard = loginService.findReaderCardByReaderId(id);
             request.getSession().setAttribute(Constant.readr, readerCard);

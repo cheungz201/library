@@ -1,6 +1,8 @@
 package com.library.dao;
 
 import com.library.bean.ReaderInfo;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.ArrayList;
 
 /**
@@ -19,14 +21,14 @@ public interface ReaderInfoDao {
      * @param reader_id
      * @return
      */
-    ReaderInfo findReaderInfoByReaderId(final long reader_id);
+    ReaderInfo findReaderInfoByReaderId(@Param("reader_id") final long reader_id);
 
     /**
      * 通过id删除读者信息
      * @param reader_id
      * @return
      */
-    int deleteReaderInfo(final long reader_id);
+    int deleteReaderInfo(@Param("reader_id") final long reader_id);
 
     /**
      * 编辑读者信息

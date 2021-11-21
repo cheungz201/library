@@ -46,15 +46,15 @@ background-attachment: fixed;">
     <div class="panel-body">
         <div class="form-group">
             <label for="id">账号</label>
-            <input type="text" class="form-control" id="id" placeholder="请输入账号">
+            <input type="text" class="form-control" id="id" naem="id" placeholder="请输入账号">
         </div>
         <div class="form-group">
             <label for="passwd">密码</label>
-            <input type="password" class="form-control" id="passwd" placeholder="请输入密码">
+            <input type="password" class="form-control" id="passwd" name="passwd" placeholder="请输入密码">
         </div>
         <div class="checkbox text-left">
             <label>
-                <input type="checkbox" id="remember">记住密码
+                <input type="checkbox" id="remember" name="remember" value="checked">记住密码
             </label>
         </div>
 
@@ -101,12 +101,15 @@ background-attachment: fixed;">
             });
         }
 
-        // 设置登录信息
         setLoginStatus();
         $("#loginButton").click(function () {
             var id =$("#id").val();
             var passwd=$("#passwd").val();
             var remember=$("#remember").prop('checked');
+            if (remember == true){
+                // 记住登录信息
+                rememberLogin(id,passwd,remember)
+            }
             if (id == '') {
                 $("#info").text("提示:账号不能为空");
             }
@@ -130,15 +133,10 @@ background-attachment: fixed;">
                             bootbox.alert({size: "small",title: "错误提示", message: "账号或密码错误!"});
                             setTimeout("bootbox.hideAll()",3000);
                         } else if (data.stateCode.trim() === "1") {
-                            bootbox.alert({size: "small",title:"提示", message:"登陆成功，跳转中..."});
+                            bootbox.alert({size: "small",title:"提示", message:"管理员登陆成功，跳转中..."});
                             setTimeout('window.location.href="/library/admin_main.html"',2500);
                         } else if (data.stateCode.trim() === "2") {
-                            if(remember){
-                                rememberLogin(id,passwd,remember);
-                            }else {
-                                Cookies.remove('loginStatus');
-                            }
-                            bootbox.alert({size: "small",title:"提示", message:"登陆成功，跳转中..."});
+                            bootbox.alert({size: "small",title:"提示", message:"读者登陆成功，跳转中..."});
                             setTimeout('window.location.href="/library/reader_main.html"',2500);
                         }
                     }

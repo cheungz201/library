@@ -40,21 +40,21 @@ public interface ReaderCardDao {
      * @param password
      * @return
      */
-    int addReaderCard(ReaderInfo readerInfo, String password);
+    int addReaderCard(ReaderInfo readerInfo, @Param("password") String password);
 
     /**
      * 通过读者id获取读者密码，此方法应被废弃，密码经过混淆，无法得到密码明文
      * @param reader_id
      * @return
      */
-    String getPassword(long reader_id);
+    String getPassword(@Param("reader_id") long reader_id);
 
     /**
      * 删除读者账户
      * @param reader_id
      * @return
      */
-    int deleteReaderCard(long reader_id);
+    int deleteReaderCard(@Param("reader_id") long reader_id);
 
     /**
      * 添加读者

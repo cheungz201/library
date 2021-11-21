@@ -1,6 +1,8 @@
 package com.library.dao;
 
 import com.library.bean.Book;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.ArrayList;
 
 /**
@@ -14,9 +16,9 @@ public interface BookDao {
      * @param searchWord
      * @return
      */
-    int matchBook(final String searchWord);
+    int matchBook(@Param("search") final String searchWord);
 
-    ArrayList<Book> queryBook(final String searchWord);
+    ArrayList<Book> queryBook(@Param("search") final String searchWord);
 
     /**
      * 得到所有的书籍
@@ -36,7 +38,7 @@ public interface BookDao {
      * @param bookId
      * @return
      */
-    Book getBook(final long bookId);
+    Book getBook(@Param("bookId") final long bookId);
 
     /**
      * 更新书籍信息
@@ -50,6 +52,6 @@ public interface BookDao {
      * @param bookId
      * @return
      */
-    int deleteBook(final long bookId) ;
+    int deleteBook(@Param("bookId") final long bookId) ;
 
 }

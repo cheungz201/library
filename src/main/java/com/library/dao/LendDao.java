@@ -1,6 +1,8 @@
 package com.library.dao;
 
 import com.library.bean.Lend;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.ArrayList;
 
 
@@ -9,14 +11,14 @@ import java.util.ArrayList;
  */
 public interface LendDao {
 
-    int returnBookOne(final long book_id, long reader_id);
+    int returnBookOne(@Param("book_id") final long book_id, @Param("reader_id") long reader_id);
 
     /**
      * 增加书籍余量
      * @param book_id
      * @return
      */
-    int returnBookTwo(final long book_id);
+    int returnBookTwo(@Param("book_id") final long book_id);
 
     /**
      * 插入书籍的借阅信息
@@ -24,14 +26,14 @@ public interface LendDao {
      * @param reader_id
      * @return
      */
-    int lendBookOne(final long book_id, final long reader_id);
+    int lendBookOne(@Param("book_id") final long book_id, @Param("reader_id") final long reader_id);
 
     /**
      * 减少书籍余量
      * @param book_id
      * @return
      */
-    int lendBookTwo(final long book_id);
+    int lendBookTwo(@Param("book_id") final long book_id);
 
     /**
      * 查询所有书籍借阅信息
@@ -44,12 +46,12 @@ public interface LendDao {
      * @param reader_id
      * @return
      */
-    ArrayList<Lend> myLendList(final long reader_id);
+    ArrayList<Lend> myLendList(@Param("reader_id")final long reader_id);
 
     /**
      * 删除指定书籍的借阅信息
      * @param ser_num
      * @return
      */
-    int deleteLend(final long ser_num);
+    int deleteLend(@Param("ser_num")final long ser_num);
 }
