@@ -3,6 +3,9 @@ package com.library.bean;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author z'z
+ */
 public class ReaderInfo implements Serializable {
 
     private long reader_id;

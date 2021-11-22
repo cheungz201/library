@@ -2,6 +2,9 @@ package com.library.bean;
 
 import java.io.Serializable;
 
+/**
+ * @author z'z
+ */
 public class ReaderCard implements Serializable {
 
     private long reader_id;

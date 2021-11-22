@@ -15,15 +15,15 @@ import java.util.Enumeration;
  * @Author: Zhang Zhe
  * @Create: 2021-11-21 14:14
  * @Version: 1.0.0
- * @Description:
+ * @Description: 回收资源后销毁线程。
  **/
 
 @WebListener
 public class EndThreadListener implements  ServletContextListener {
 
-
     @Override
     public void contextInitialized(ServletContextEvent sce){ }
+
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         Enumeration<Driver> drivers = DriverManager.getDrivers();

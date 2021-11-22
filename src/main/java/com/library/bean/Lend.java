@@ -3,6 +3,9 @@ package com.library.bean;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author z'z
+ */
 public class Lend implements Serializable {
 
     private long ser_num;

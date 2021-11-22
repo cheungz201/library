@@ -1,5 +1,8 @@
 package com.library.bean;
 
+/**
+ * @author z'z
+ */
 public class ReaderInfoDate extends ReaderInfo {
     String birthday;
 

@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 
 
@@ -50,7 +49,7 @@ public class LoginController {
      */
     @RequestMapping(value = "/api/loginCheck", method = RequestMethod.POST)
     public @ResponseBody
-    Object loginCheck(HttpServletRequest request,Long id,String passwd,String remember) {
+    Object loginCheck(HttpServletRequest request,Long id,String passwd) {
         boolean isReader = loginService.hasMatchReader(id, passwd);
         boolean isAdmin = loginService.hasMatchAdmin(id, passwd);
         HashMap<String, String> res = new HashMap<String, String>();
@@ -63,8 +62,6 @@ public class LoginController {
             request.getSession().setAttribute(Constant.admin, admin);
             res.put("stateCode", "1");
             res.put("msg", "管理员登陆成功！");
-            /*if (remember.equals("true")){
-            }*/
         } else if (isReader) {
             ReaderCard readerCard = loginService.findReaderCardByReaderId(id);
             request.getSession().setAttribute(Constant.readr, readerCard);
@@ -78,12 +75,12 @@ public class LoginController {
     }
 
     @RequestMapping("/admin_main.html")
-    public ModelAndView toAdminMain(HttpServletResponse response) {
+    public ModelAndView toAdminMain() {
         return new ModelAndView("admin_main");
     }
 
     @RequestMapping("/reader_main.html")
-    public ModelAndView toReaderMain(HttpServletResponse response) {
+    public ModelAndView toReaderMain() {
         return new ModelAndView("reader_main");
     }
 
@@ -93,7 +90,7 @@ public class LoginController {
     }
 
     @RequestMapping("/admin_repasswd_do")
-    public String reAdminPasswdDo(HttpServletRequest request, String oldPasswd, String newPasswd, String reNewPasswd, RedirectAttributes redirectAttributes) {
+    public String reAdminPasswdDo(HttpServletRequest request, String oldPasswd, String newPasswd, RedirectAttributes redirectAttributes) {
         Admin admin = (Admin) request.getSession().getAttribute(Constant.admin);
         long id = admin.getAdminId();
         String password = loginService.getAdminPassword(id);
@@ -117,7 +114,7 @@ public class LoginController {
     }
 
     @RequestMapping("/reader_repasswd_do")
-    public String reReaderPasswdDo(HttpServletRequest request, String oldPasswd, String newPasswd, String reNewPasswd, RedirectAttributes redirectAttributes) {
+    public String reReaderPasswdDo(HttpServletRequest request, String oldPasswd, String newPasswd, RedirectAttributes redirectAttributes) {
         ReaderCard reader = (ReaderCard) request.getSession().getAttribute(Constant.readr);
         long id = reader.getReaderId();
         String password = loginService.getReaderPassword(id);
