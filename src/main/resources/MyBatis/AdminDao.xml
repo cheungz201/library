@@ -16,6 +16,7 @@
     <select id="getUsername" resultType="String" parameterType="long">
         select username from admin where admin_id = #{admin_id}
     </select>
+
     <select id="getAdmin" resultType="com.library.bean.Admin">
         select admin_id,password,username from admin
         where admin_id=#{admin_id} and password=#{password}

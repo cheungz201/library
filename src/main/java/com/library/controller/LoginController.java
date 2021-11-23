@@ -50,23 +50,20 @@ public class LoginController {
     @RequestMapping(value = "/api/loginCheck", method = RequestMethod.POST)
     public @ResponseBody
     Object loginCheck(HttpServletRequest request,Long id,String passwd) {
+        Admin admin = loginService.getAdmin(id, passwd);
         boolean isReader = loginService.hasMatchReader(id, passwd);
-        boolean isAdmin = loginService.hasMatchAdmin(id, passwd);
         HashMap<String, String> res = new HashMap<String, String>();
-        if (isAdmin) {
-            Admin admin = new Admin();
-            admin.setAdminId(id);
-            admin.setPassword(passwd);
-            String username = loginService.getAdminUsername(id);
-            admin.setUsername(username);
+        if (admin != null) {
             request.getSession().setAttribute(Constant.admin, admin);
             res.put("stateCode", "1");
             res.put("msg", "管理员登陆成功！");
+            return res;
         } else if (isReader) {
             ReaderCard readerCard = loginService.findReaderCardByReaderId(id);
             request.getSession().setAttribute(Constant.readr, readerCard);
             res.put("stateCode", "2");
             res.put("msg", "读者登陆成功！");
+            return res;
         } else {
             res.put("stateCode", "0");
             res.put("msg", "账号或密码错误！");
@@ -97,15 +94,14 @@ public class LoginController {
         if (password.equals(oldPasswd)) {
             if (loginService.adminRePassword(id, newPasswd)) {
                 redirectAttributes.addFlashAttribute("succ", "密码修改成功！");
-                return "redirect:/admin_repasswd.html";
             } else {
                 redirectAttributes.addFlashAttribute("error", "密码修改失败！");
-                return "redirect:/admin_repasswd.html";
             }
         } else {
             redirectAttributes.addFlashAttribute("error", "旧密码错误！");
-            return "redirect:/admin_repasswd.html";
         }
+        return "redirect:/admin_repasswd.html";
+
     }
 
     @RequestMapping("/reader_repasswd.html")
@@ -121,15 +117,13 @@ public class LoginController {
         if (password.equals(oldPasswd)) {
             if (loginService.readerRePassword(id, newPasswd)) {
                 redirectAttributes.addFlashAttribute("succ", "密码修改成功！");
-                return "redirect:/reader_repasswd.html";
             } else {
                 redirectAttributes.addFlashAttribute("error", "密码修改失败！");
-                return "redirect:/reader_repasswd.html";
             }
         } else {
             redirectAttributes.addFlashAttribute("error", "旧密码错误！");
-            return "redirect:/reader_repasswd.html";
         }
+        return "redirect:/reader_repasswd.html";
     }
 
     //配置404页面

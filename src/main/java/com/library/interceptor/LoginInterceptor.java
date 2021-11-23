@@ -1,7 +1,6 @@
 package com.library.interceptor;
 
 import com.library.utils.Constant;
-import com.sun.org.apache.bcel.internal.Const;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;

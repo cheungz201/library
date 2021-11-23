@@ -4,6 +4,7 @@ import com.library.bean.ReaderCard;
 import com.library.bean.vo.LendInfo;
 import com.library.service.BookService;
 import com.library.service.LendService;
+import com.library.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +46,7 @@ public class LendController {
 
     @RequestMapping("/mylend.html")
     public ModelAndView myLend(HttpServletRequest request) {
-        ReaderCard readerCard = (ReaderCard) request.getSession().getAttribute("readercard");
+        ReaderCard readerCard = (ReaderCard) request.getSession().getAttribute(Constant.readr);
         ModelAndView modelAndView = new ModelAndView("reader_lend_list");
         ArrayList<LendInfo> lendInfo = lendService.getLendInfoById(readerCard.getReaderId());
         modelAndView.addObject("list", lendInfo);
@@ -66,7 +67,7 @@ public class LendController {
     @RequestMapping("/lendbook.html")
     public String bookLend(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         long bookId = Long.parseLong(request.getParameter("bookId"));
-        long readerId = ((ReaderCard) request.getSession().getAttribute("readercard")).getReaderId();
+        long readerId = ((ReaderCard) request.getSession().getAttribute(Constant.readr)).getReaderId();
         if (lendService.lendBook(bookId, readerId)) {
             redirectAttributes.addFlashAttribute("succ", "图书借阅成功！");
         }
@@ -76,7 +77,7 @@ public class LendController {
     @RequestMapping("/returnbook.html")
     public String bookReturn(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         long bookId = Long.parseLong(request.getParameter("bookId"));
-        long readerId = ((ReaderCard) request.getSession().getAttribute("readercard")).getReaderId();
+        long readerId = ((ReaderCard) request.getSession().getAttribute(Constant.readr)).getReaderId();
         if (lendService.returnBook(bookId, readerId)) {
             redirectAttributes.addFlashAttribute("succ", "图书归还成功！");
         } else {

@@ -9,7 +9,7 @@ import java.security.NoSuchAlgorithmException;
  * @Author: Zhang Zhe
  * @Create: 2021-11-12 16:14
  * @Version: 1.0.0
- * @Description:
+ * @Description: Md5工具类
  **/
 public class Md5Util {
 

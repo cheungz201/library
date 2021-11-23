@@ -33,6 +33,7 @@ public class LoginService {
     public boolean adminRePassword(long adminId, String newPassword){
         return adminDao.resetPassword(adminId,Md5Util.MD5encode(adminId+newPassword))>0;
     }
+
     public String getAdminPassword(long adminId){
         return adminDao.getPassword(adminId);
     }
@@ -57,4 +58,9 @@ public class LoginService {
     public boolean hasMatchAdmin(long adminId,String password){
         return adminDao.getMatchCount(adminId, Md5Util.MD5encode(adminId+password)) == 1;
     }
+
+    public Admin getAdmin(long id,String password){
+        return adminDao.getAdmin(id,password);
+    }
+
 }
