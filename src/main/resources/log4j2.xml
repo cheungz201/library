@@ -59,7 +59,7 @@
         <logger name="com.library.controller" level="DEBUG" additivity="true">
             <appender-ref ref="service_log"/>
         </logger>
-        <logger name="com.library.utils.AspectUtils" level="DEBUG" additivity="true">
+        <logger name="com.library.utils.aspectutils" level="DEBUG" additivity="true">
             <appender-ref ref="service_log"/>
         </logger>
         

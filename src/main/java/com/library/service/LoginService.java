@@ -60,7 +60,7 @@ public class LoginService {
     }
 
     public Admin getAdmin(long id,String password){
-        return adminDao.getAdmin(id,password);
+        return adminDao.getAdmin(id,Md5Util.MD5encode(id+password));
     }
 
 }

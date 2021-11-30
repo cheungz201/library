@@ -1,28 +1,16 @@
 package xyz;
 
 import com.library.bean.Admin;
-import com.library.bean.Lend;
 import com.library.bean.ReaderCard;
 import com.library.bean.vo.LendInfo;
-import com.library.controller.LoginController;
 import com.library.dao.AdminDao;
-import com.library.dao.BookDao;
 import com.library.dao.LendDao;
 import com.library.dao.ReaderCardDao;
-import com.library.utils.AspectUtils.IpLogUtil;
 import com.library.utils.Md5Util;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.security.Principal;
 import java.util.*;
 
 /**
@@ -49,11 +37,11 @@ public class AdminTest extends BaseTest {
     /**
      * 添加管理员账户
      */
-    //@Test
+    @Test
     public void setAdminAccount() {
-        long id = 666666;
+        long id = 888888;
         String password = "123456";
-        String username = "cheungz";
+        String username = "Zhang Zhe";
         Admin admin = new Admin();
         admin.setAdminId(id);
         admin.setPassword(Md5Util.MD5encode(id + password));
